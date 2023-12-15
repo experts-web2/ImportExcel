@@ -1,21 +1,49 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ImportExcel.Interface;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ImportExcel.Controllers
 {
-	public class OrderController : Controller
+    public class OrderController : Controller
 	{
-		public IActionResult GetData()
+		private readonly IFileInterface _fileService;
+		public OrderController(IFileInterface fileInterface)
 		{
-			List<Order> orders = new List<Order>()
-			{
-			 new Order(){Name = "Clarifying Graphene Sheet Mask",
-				Image="https://vouponlive.blob.core.windows.net/products/216/images/small_01_6cd6079e-5bf5-4965-b488-f31e5e3624c3.jpeg",
-				OrderDate = Convert.ToDateTime("11/7/2023"),
-				Price =  20.00M,
-				Discount =  17.00M
-			 }
-			};
+			_fileService = fileInterface;
+		}
+		[HttpGet]
+		public IActionResult GetData(List<Order>? orders=null)
+		{
+			if(orders is null)
+				orders = new List<Order>();
+			return View(orders);
+		}
+        [HttpGet]
+        public IActionResult ImportExcel(List<Order>? orders = null)
+        {
+            if (orders is null)
+                orders = new List<Order>();
             return View(orders);
         }
+
+        [HttpPost]
+		public IActionResult UploadExcel(IFormFile inputFile)
+		{
+			try
+			{
+				if (inputFile == null || inputFile.Length == 0)
+				{
+					return BadRequest("File is empty");
+				}
+                _fileService.UploadFile(inputFile);
+
+				return View(nameof(GetData),new List<Order>());
+				return View();
+			}
+			catch (Exception)
+			{
+				return GetData();
+			}
+		}
+
 	}
 }
