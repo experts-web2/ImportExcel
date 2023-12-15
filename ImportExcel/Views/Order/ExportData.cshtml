@@ -1,0 +1,36 @@
+﻿@using DAL.Enums
+@{
+    ViewData["Title"] = "Export";
+}
+@* <form method="post" enctype="multipart/form-data" asp-controller="Order" asp-action="ExportData"> *@
+<div class="form-group">
+    <select id="exporter" name="exporterType" class="form-control">
+        <option value="">Select a Exporter</option>
+        @foreach (var export in Enum.GetValues(typeof(ExporterEnum)))
+        {
+            <option value="@export">@export</option>
+        }
+    </select>
+</div>
+<br />
+<button id="btnRead" class="btn btn-primary">Read Data</button>
+@* </form> *@
+<br />
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $("#btnRead").click(function () {
+                var exporterType = $("#exporter").val();
+                $.ajax({
+                    url: "/Order/ExportData",
+                    method: "POST",
+                    data: { exporterType: exporterType },
+                    success: function (response) {
+                        window.location.href = '@Url.Action("OrderList", "Order")'
+                    }
+                });
+            });
+        });
+    </script>
+}

@@ -1,3 +1,4 @@
+using DAL.Factory;
 using ImportExcel.DAL;
 using ImportExcel.Interface;
 using ImportExcel.Services;
@@ -14,7 +15,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
 	options.UseNpgsql(builder.Configuration.GetConnectionString("DBConnection")));
 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-builder.Services.AddScoped<IFileInterface, FileService>();
+builder.Services.AddScoped<IFileImportRepository, FileImportRepository>();
+builder.Services.AddScoped<IExportFactory,ExportFactory>();
 
 
 var app = builder.Build();
@@ -36,6 +38,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
 	name: "default",
-	pattern: "{controller=Home}/{action=Index}/{id?}");
+	pattern: "{controller=Order}/{action=ImportData}/{id?}");
 
 app.Run();

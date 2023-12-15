@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Import";
+}
+<form method="post" enctype="multipart/form-data" asp-controller="Order" asp-action="UploadExcel">
+    <div class="form-group">
+        <label for="inputFile">Select Excel File:</label>
+        <input type="file" accept=".xlsx" class="form-control" name="inputFile" id="inputFile" required />
+    </div>
+    <br />
+        <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<br />
+<label>@TempData["TotalRecords"]</label>

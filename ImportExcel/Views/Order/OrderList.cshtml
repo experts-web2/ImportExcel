@@ -1,0 +1,80 @@
+﻿@model List<Order>
+@{
+    ViewData["Title"] = "Order List";
+}
+@* <table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Image</th>
+            <th scope="col">Name</th>
+            <th scope="col">Order Date</th>
+            <th scope="col">Price</th>
+            <th scope="col">Discount Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th><img src = '@item.Image' width="40" height="40" /></th>
+                <td>@item.Name</td>
+                <td>@item.OrderDate</td>
+                <td>@item.Price</td>
+                <td>@item.Discount</td>
+            </tr>
+        }
+       
+    </tbody>
+</table> *@
+
+<div class="main-page">
+    <div class="container-wrapper">
+        <div class="header">
+            <h1 class="header-heading">MY PURCHSES</h1>
+            <div class="search-wrapper">
+                <i class="fa fas fa-solid fa-magnifying-glass"></i>
+                <input type="text" class="search-input">
+            </div>
+        </div>
+        <div class="content-section">
+            <div class="tabs-section">
+                <div class="tab">To Pay</div>
+                <div class="tab active">To Receive</div>
+                <div class="tab">Completed</div>
+                <div class="tab">Refund</div>
+            </div>
+            @foreach (var item in Model)
+            {
+
+            
+            <div class="tabs-content">
+                <div class="date-wrapper">
+                    <p class="store-name">Vodus Store <i class="fa fa-solid fa-angle-right"></i></p>
+                    <p class="date">Order Date:@item.OrderDate</p>
+                </div>
+                <div class="product-wrapper">
+                    <div class="img-wrapper">
+                        <img src="@item.Image" alt="">
+                    </div>
+                    <div class="product-detail d-flex justify-content-between align-items-end align-items-lg-center flex-column flex-lg-row">
+                        <div class="d-flex flex-column flex-md-row product-text-content justify-content-between align-items-start align-items-md-center">
+                            <div class="d-flex w-100 justify-content-between align-items-center">
+                                <div class="d-flex flex-column justify-content-center">
+                                    <p class="product-type">@item.Name</p>
+                                    <p class="product-selection">RM5 DISCOUNT (50 VPoints) <i class="fa fa-solid fa-angle-down"></i></p>
+                                    <p class="product-info">variation:Black, XL</p>
+                                </div>
+                                <div class="size-box mx-2 mx-lg-4">x1</div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <p class="actual-price">@item.Price</p> <p class="discount-price">@item.Discount</p>
+                            </div>
+                        </div>
+                        <div class="order-status-wrapper">Pending <i class="fa fa-solid fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>
