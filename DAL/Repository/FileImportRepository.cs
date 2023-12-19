@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace ImportExcel.Services
 {
@@ -37,7 +38,7 @@ namespace ImportExcel.Services
                                 Id = worksheet.Cells[row, 1].Value.ToString(),
                                 Image = worksheet.Cells[row, 2].Value.ToString(),
                                 Name = worksheet.Cells[row, 3].Value.ToString(),
-                                OrderDate =worksheet.Cells[row, 4].Value.ToString(),
+                                OrderDate = GetDateString(worksheet, row),
                                 Price = worksheet.Cells[row, 5].Value.ToString(),
                                 Discount = worksheet.Cells[row, 6].Value.ToString(),
                             };
@@ -54,6 +55,13 @@ namespace ImportExcel.Services
             {
                 throw;
             }
+        }
+
+        private static string GetDateString(ExcelWorksheet worksheet, int row)
+        {
+            double d = double.Parse(worksheet.Cells[row, 4].Value.ToString());
+            DateTime conv = DateTime.FromOADate(d);                                                               
+            return conv.ToString("yyyy/MM/dd");
         }
 
         private void SaveDataToJson(string filePath, List<Order> orders)

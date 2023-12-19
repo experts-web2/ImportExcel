@@ -9,6 +9,6 @@ namespace DAL.Interface
 {
     public interface IFileExportRepository
     {
-        List<Order> ExportData(string filePath = null);
+        List<OrderDTO> ExportData(string filePath = null);
     }
 }

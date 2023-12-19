@@ -19,10 +19,18 @@ namespace DAL.Repository
         {
             _context = db;
         }
-        public List<Order> ExportData(string filePath = null)
+        public List<OrderDTO> ExportData(string filePath = null)
         {
             List<Order> orders = _context.Orders.ToList();
-            return orders;
+            List<OrderDTO> orderDTOs = new List<OrderDTO>();
+            if (orders != null && orders.Any())
+            {
+                foreach (var order in orders)
+                {
+                    orderDTOs.Add(new OrderDTO { Discount = order.Discount, Name = order.Name, OrderDate = order.OrderDate, Price = order.Price, Image = order.Image, Id = order.Id });
+                }
+            }
+            return orderDTOs;
         }
     }
 }

@@ -1,32 +1,7 @@
-﻿@model List<Order>
+﻿@model List<OrderDTO>
 @{
     ViewData["Title"] = "Order List";
 }
-@* <table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Image</th>
-            <th scope="col">Name</th>
-            <th scope="col">Order Date</th>
-            <th scope="col">Price</th>
-            <th scope="col">Discount Price</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <th><img src = '@item.Image' width="40" height="40" /></th>
-                <td>@item.Name</td>
-                <td>@item.OrderDate</td>
-                <td>@item.Price</td>
-                <td>@item.Discount</td>
-            </tr>
-        }
-       
-    </tbody>
-</table> *@
-
 <div class="main-page">
     <div class="container-wrapper">
         <div class="header">

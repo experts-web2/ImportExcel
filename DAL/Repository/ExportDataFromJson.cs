@@ -9,14 +9,22 @@ using System.Threading.Tasks;
 
 namespace DAL.Repository
 {
-    public class ExportDataFromJson : IFileExportRepository
+    internal class ExportDataFromJson : IFileExportRepository
     {
-        public List<Order> ExportData(string filePath = null)
+        public List<OrderDTO> ExportData(string filePath = null)
         {
             List<Order> orders = new List<Order>();
             string json = File.ReadAllText(filePath);
             orders = JsonConvert.DeserializeObject<List<Order>>(json);
-            return orders;
+            List<OrderDTO> orderDTOs = new List<OrderDTO>();
+            if (orders != null && orders.Any())
+            {
+                foreach (var order in orders)
+                {
+                    orderDTOs.Add(new OrderDTO { Discount = order.Discount, Name = order.Name, OrderDate = order.OrderDate, Price = order.Price, Image = order.Image, Id = order.Id });
+                }
+            }
+            return orderDTOs;
         }
     }
 }
