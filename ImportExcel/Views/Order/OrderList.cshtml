@@ -2,13 +2,18 @@
 @{
     ViewData["Title"] = "Order List";
 }
+<form method="get" asp-controller="Order" asp-action="FilterData">
+<input name="startDate" type="date" />
+<input name="endDate" type="date" />
+<input type="submit" />
+</form>
 <div class="main-page">
     <div class="container-wrapper">
         <div class="header">
             <h1 class="header-heading">MY PURCHSES</h1>
             <div class="search-wrapper">
                 <i class="fa fas fa-solid fa-magnifying-glass"></i>
-                <input type="text" class="search-input">
+                <input id="txtSearch" type="text" class="search-input">
             </div>
         </div>
         <div class="content-section">
@@ -53,3 +58,23 @@
         </div>
     </div>
 </div>
+@section Scripts
+{
+    <script>
+        $('#txtSearch').keypress(function (e) {
+            var key = e.which;
+            if (key == 13)  // the enter key code
+            {
+                var data = $("#txtSearch").val();
+                $.ajax({
+                    url: "/Order/SearchData",
+                    method: "GET",
+                    data: { data: data },
+                    success: function (response) {
+                        window.location.href = '@Url.Action("OrderList", "Order")'
+                    }
+                });
+            }
+        });
+    </script>
+}

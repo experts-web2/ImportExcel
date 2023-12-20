@@ -14,7 +14,6 @@ namespace DAL.Repository
     internal class ExportDataFromDatabase : IFileExportRepository
     {
         private readonly AppDbContext _context;
-
         public ExportDataFromDatabase(AppDbContext db)
         {
             _context = db;
@@ -22,7 +21,7 @@ namespace DAL.Repository
         public List<OrderDTO> ExportData(string filePath = null)
         {
             List<Order> orders = _context.Orders.ToList();
-            List<OrderDTO> orderDTOs = new List<OrderDTO>();
+             List<OrderDTO> orderDTOs = new List<OrderDTO>();
             if (orders != null && orders.Any())
             {
                 foreach (var order in orders)

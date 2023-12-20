@@ -1,4 +1,6 @@
 using DAL.Factory;
+using DAL.Interface;
+using DAL.Repository;
 using ImportExcel.DAL;
 using ImportExcel.ExceptionHandlers;
 using ImportExcel.Interface;
@@ -20,8 +22,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
 	options.UseNpgsql(builder.Configuration.GetConnectionString("DBConnection")));
 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-builder.Services.AddScoped<IFileImportRepository, FileImportRepository>();
+builder.Services.AddScoped<IFileImportDBRepository, FileImportDBRepository>();
 builder.Services.AddScoped<IExportFactory,ExportFactory>();
+builder.Services.AddScoped<IFileImportJsonRepository, FileImportJsonRepository>();
+builder.Services.AddScoped<IUtility, UtitlityRepository>();
 
 
 var app = builder.Build();
