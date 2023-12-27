@@ -62,12 +62,11 @@ namespace ImportExcel.Services
             }
         }
 
-        public async Task<List<OrderDTO>> FilterFromDatabase(DateTime startDate, DateTime endDate)
+        public  List<OrderDTO> FilterFromDatabase(DateTime startDate, DateTime endDate)
         {
             try
-            { 
-                List<Order> orders =await _context.Orders.Where(x => Convert.ToDateTime(x.OrderDate) >= startDate && Convert.ToDateTime(x.OrderDate) <= endDate).ToListAsync();
-            
+            {
+                IEnumerable<Order> orders =  _context.Orders.AsEnumerable().Where(x => Convert.ToDateTime(x.OrderDate) >= startDate && Convert.ToDateTime(x.OrderDate) <= endDate);
                 List<OrderDTO> orderDTOs = new List<OrderDTO>();
                 if (orders != null && orders.Any())
                 {

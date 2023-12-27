@@ -3,9 +3,6 @@ using DAL.Factory;
 using DAL.Interface;
 using ImportExcel.Interface;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using OfficeOpenXml.Style;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ImportExcel.Controllers
 {
@@ -85,9 +82,9 @@ namespace ImportExcel.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> FilterData(DateTime startDate, DateTime endDate)
+        public  IActionResult FilterData(DateTime startDate, DateTime endDate)
         {
-            orders = await _fileDBRepository.FilterFromDatabase(startDate, endDate);
+            orders =  _fileDBRepository.FilterFromDatabase(startDate, endDate);
             return RedirectToAction(nameof(OrderList));
         }
 

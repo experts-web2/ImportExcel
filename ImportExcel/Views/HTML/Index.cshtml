@@ -1,0 +1,20 @@
+﻿@model ImportExcel.Models.HTMLModel
+@using ImportExcel.Controllers;
+
+@{
+    ViewData["Title"] = "Order List";
+}
+<form asp-controller="HTML" asp-action="DesiredTable" method="get">
+    <div class="form-group">
+        <select multiple id="htmlDropdown" asp-items="HTMLController.items" asp-for="Columns" class="form-select">
+        </select>
+    </div>
+    <br />
+    <input type="submit" class="btn btn-primary" />
+</form>
+@section Scripts
+    {
+    <script>
+        $("#htmlDropdown").select2();
+    </script>
+}

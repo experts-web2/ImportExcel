@@ -6,6 +6,6 @@ namespace ImportExcel.Interface
 	{
         void ImportToDatabase(List<OrderDTO> orderDTOs);
        List<OrderDTO> SearchFromDatabase(string searchData);
-       Task<List<OrderDTO>> FilterFromDatabase(DateTime startDate, DateTime endDate);
+       List<OrderDTO> FilterFromDatabase(DateTime startDate, DateTime endDate);
     }
 }
