@@ -44,7 +44,7 @@ namespace ImportExcel.Services
         {
             try
             {
-                List<Order> orders = _context.Orders.Where(x => x.Name.Contains(searchData) || x.Id.Contains(searchData)).ToList();
+                List<Order> orders = _context.Orders.Where(x => x.Name.ToLower().Contains(searchData.ToLower()) || x.Id.Contains(searchData)).ToList();
                 List<OrderDTO> orderDTOs = new List<OrderDTO>();
                 if (orders != null && orders.Any())
                 {
